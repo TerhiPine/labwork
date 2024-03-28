@@ -1,4 +1,4 @@
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -15,7 +15,7 @@ export default function User() {
     <Section>
         <div className="container">
             <h1>Welcome {user?.email}</h1>
-            <button>Sign Out</button>
+            <button onClick={() => signOut(firebaseAuth)}>Sign Out</button>
         </div>
     </Section>
   )
