@@ -1,42 +1,53 @@
-import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { firebaseAuth } from '../firebase-config';
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { firebaseAuth } from "../firebase-config";
 
 export default function Signup() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-    const handleLogin = async () => {
-        try {
-            await signInWithEmailAndPassword(firebaseAuth, email, password);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+  const handleLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(firebaseAuth, email, password);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    onAuthStateChanged(firebaseAuth, (currentUser) => {
-        if (currentUser) navigate("/");
-    });
+  onAuthStateChanged(firebaseAuth, (currentUser) => {
+    if (currentUser) navigate("/");
+  });
 
   return (
     <Section>
-        <div className="container">
-            <h1>Signup</h1>
-            <input type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} />
-            <input type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} />
-            <div className="button">
-                <button onClick={handleLogin}>Login</button>
-                <span>Don't have an account? 
-
-                    <Link to="/signup"> Sign up</Link>
-                </span>
-            </div>
+      <div className="container">
+        <h1>Signup</h1>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <div className="button">
+          <button onClick={handleLogin}>Login</button>
+          <span>
+            Don't have an account?
+            <Link to="/signup"> Sign up</Link>
+            <Link to="/forgotpassword"> Forgot Password?</Link>
+          </span>
         </div>
+      </div>
     </Section>
-  )
+  );
 }
 const Section = styled.section`
   height: 100vh;
